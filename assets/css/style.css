@@ -1,0 +1,24 @@
+.h1 {
+    font-family: 'Bangers', cursive;
+    text-align: center;
+    color: white;
+}
+
+.jumbo {
+    background-color: rgb(168, 8, 8);
+    padding: 50px;
+}
+
+.btn {
+    background-color: rgb(168, 8, 8);
+    font-family: 'Bangers', cursive;
+    font-size: 16pt;
+    padding: 15px;
+    color: white;
+}
+
+.center {
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    background-color: rgba(188, 143, 143, 0.568);
+}
