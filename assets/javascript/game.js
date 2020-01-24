@@ -4,8 +4,8 @@ var wins = 0;
 var loss = 0;
 var tie = 0;
 
-$("#start-button").on("click", function(){
-    $("#main-content").remove();
+$(".start-button").on("click", function(){
+    $("#main-content").val("");
 
     console.log("clicked");
 
@@ -16,16 +16,24 @@ $("#start-button").on("click", function(){
         a.text(playerInput[i]);
     }
 
-    // add in click function for choice of player 1
-    // log choice to the db
-    // when user clicks choice would then go to player2 screen - identical but replace player 1 with player 2
-    // same click function would log choice to the DB
-    database.ref().push({
-        player1: player1,
-        playerOneGuess: playerOneGuess,
-      });
+    var textInstruction = $("#main-content").append("<p>");
+
+    textInstruction.text("Player 1, select your choice!");
+    textInstruction.addClass(".btn");
+
+
+// add in click function for choice of player 1
+// log choice to the db
+// when user clicks choice would then go to player2 screen - identical but replace player 1 with player 2
+// same click function would log choice to the DB
+database.ref().push({
+    player1: player1,
+    playerOneGuess: playerOneGuess,
+});
 // next screen is who won? click function to display who won, choices and tallies and then click function to bring back to player 1 choice page to start again
 })
+
+
 
 
 
