@@ -42,6 +42,11 @@ var firebaseConfig = {
 
 // add in click function for choice of player 1
 
+$("button").on("click", function() {
+    var userSelect = $(this).attr("data-value");
+    
+})
+
 $("#rock1").on("click", function(){
     console.log("clicked");
     player1 = "Rock";
@@ -105,7 +110,7 @@ $("#scissors2").on("click", function(){
 
 $("#whoWonBtn").on("click", function() {
     $("#mainContent").val("");
-    
+
 
 })
 
