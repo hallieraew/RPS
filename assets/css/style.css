@@ -1,17 +1,17 @@
 .h1 {
-    font-family: 'Bangers', cursive;
+    font-family: 'Permanent Marker', cursive;
     text-align: center;
     color: white;
 }
 
 .jumbo {
-    background-color: rgb(168, 8, 8);
+    background-color: rgb(8, 37, 168);
     padding: 50px;
 }
 
 .btn {
-    background-color: rgb(168, 8, 8);
-    font-family: 'Bangers', cursive;
+    background-color: rgb(8, 37, 168);
+    font-family: 'Permanent Marker', cursive;
     font-size: 16pt;
     padding: 15px;
     color: white;
@@ -19,8 +19,8 @@
 
 .center {
     text-align: center;
-    font-family: 'Bangers', cursive;
-    background-color: rgba(188, 143, 143, 0.568);
+    font-family: 'Permanent Marker', cursive;
+    background-color: rgba(124, 196, 238, 0.568);
 }
 
 /* .cardLeft {
