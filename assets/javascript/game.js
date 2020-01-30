@@ -21,10 +21,10 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-database.ref().set({
-    player1: player1Select,
-    player2: player2Select
-});
+// database.ref().set({
+//     player1: player1Select,
+//     player2: player2Select
+// });
 
 
 for (i = 0; i < playerInput.length; i++) {
@@ -42,11 +42,12 @@ textInstruction.addClass(".btn");
 
 // add in click function for choice of player 1
 
-$("#cardLeft").on("click", function () {
-    var player1Select = $(this).attr("data-value");
+$(".card-body-left").on("click", function () {
+    console.log("clicked")
+    player1 = $(this).attr("data-value");
 
-    database.ref().push({
-        player1: player1Select
+    database.ref().set({
+        player1: player1
     })
 });
 
@@ -147,7 +148,7 @@ $("#cardRight").on("click", function () {
                 $("#").text("wins: " + wins);
                 $("#").text("losses: " + losses);
                 $("#").text("ties: " + ties);
-                // reset(); havent created this function yet - it would go back to player 1 input screen so that they can keeo same game
+                // reset(); havent created this function yet - this would reset values in the db so that players can go again - need to maybe have a different view or button for reset AFTER we determine won is the winner
                 
             };
         });
