@@ -22,21 +22,6 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 
-for (i = 0; i < playerInput.length; i++) {
-    var a = $("<button>");
-    a.addClass("btn");
-    a.attr("data-value", playerInput[i]);
-    a.text(playerInput[i]);
-}
-
-var textInstruction = $("#main-content").append("<p>");
-
-textInstruction.text("Player 1, select your choice!");
-textInstruction.addClass(".btn");
-
-
-// add in click function for choice of player 1
-
 $(".card-body-left").find("button").on("click", function () {
     console.log("clicked")
     player1 = $(this).text();
@@ -52,7 +37,7 @@ $("#cardRight").find("button").on("click", function () {
     })
 });
 
-database.ref("player1/choice").on("value", function(snapshot) {
+database.ref("player1/choice").on("value", function (snapshot) {
     console.log(snapshot.val());
     player1 = snapshot.val();
 
@@ -63,7 +48,7 @@ database.ref("player1/choice").on("value", function(snapshot) {
     }
 })
 
-database.ref("player2/choice").on("value", function(snapshot) {
+database.ref("player2/choice").on("value", function (snapshot) {
     console.log(snapshot.val());
     player2 = snapshot.val();
 
@@ -75,37 +60,41 @@ database.ref("player2/choice").on("value", function(snapshot) {
 })
 
 
-    $("#whoWonBtn").on("click", function () {
-        $("#mainContent").val("");
+$("#whoWonBtn").on("click", function () {
+    $("#mainContent").detach("");
+    console.log("reveal clicked");
 
-        database.ref().on("value", function (snapshot) {
+    database.ref().on("value", function (snapshot) {
 
-            // Store everything into a variable.
-            player1 = snapshot.val();
-            player2 = snapshot.val();
+        // Store everything into a variable.
+        player1 = snapshot.val();
+        player2 = snapshot.val();
 
 
-            
-            if ((player1 === "Rock") || (player1 === "Paper") || (player1 === "Scissors")) {
-                
-                if ((player1 === "Rock" && player2 === "Scissors") ||
+
+        if ((player1 === "Rock") || (player1 === "Paper") || (player1 === "Scissors")) {
+
+            if ((player1 === "Rock" && player2 === "Scissors") ||
                 (player1 === "Scissors" && player2 === "Paper") ||
                 (player1 === "Paper" && player2 === "Rock")) {
-                    wins++;
-                } else if (player1 === player2) {
-                    ties++;
-                } else {
-                    losses++;
-                }
-                
-                $("#").text("Player 1 chose: " + player1);
-                $("#").text("Player 2 chose: " + player2);
-                $("#").text("wins: " + wins);
-                $("#").text("losses: " + losses);
-                $("#").text("ties: " + ties);
-                // reset(); havent created this function yet - this would reset values in the db so that players can go again - need to maybe have a different view or button for reset AFTER we determine won is the winner
-                
-            };
-        });
+                wins++;
+            } else if (player1 === player2) {
+                ties++;
+            } else {
+                losses++;
+            }
+            // reset(); havent created this function yet - this would reset values in the db so that players can go again - need to maybe have a different view or button for reset AFTER we determine won is the winner
+        };
+    });
+    $("#winScreen").html("<p id = player1Chose>");
+    $("#winScreen").html("<p id = player2Chose>");
+    $("#winScreen").html("<p id = endWins>");
+    $("#winScreen").html("<p id = endLoss>");
+    $("#winScreen").html("<p id = endTies>");
+    $(".player1Chose").text("Player 1 chose: " + player1);
+    $(".player2Chose").text("Player 2 chose: " + player2);
+    $(".endWins").text("wins: " + wins);
+    $(".endLoss").text("losses: " + loss);
+    $(".endTies").text("ties: " + tie);
 
 });
