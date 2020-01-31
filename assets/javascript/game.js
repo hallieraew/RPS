@@ -21,11 +21,6 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-// database.ref().set({
-//     player1: player1Select,
-//     player2: player2Select
-// });
-
 
 for (i = 0; i < playerInput.length; i++) {
     var a = $("<button>");
@@ -42,109 +37,69 @@ textInstruction.addClass(".btn");
 
 // add in click function for choice of player 1
 
-$(".card-body-left").on("click", function () {
+$(".card-body-left").find("button").on("click", function () {
     console.log("clicked")
-    player1 = $(this).attr("data-value");
+    player1 = $(this).text();
 
-    database.ref().set({
-        player1: player1
+    database.ref("player1/choice").set(player1)
+});
+
+$("#cardRight").find("button").on("click", function () {
+    player2 = $(this).text();
+
+    database.ref("player2").set({
+        choice: player2
     })
 });
 
-$("#cardRight").on("click", function () {
-    player2Select = $(this).attr("data-value");
+database.ref("player1/choice").on("value", function(snapshot) {
+    console.log(snapshot.val());
+    player1 = snapshot.val();
 
-    database.ref().push({
-        player2Select: player2Value
-    })
-});
-    // $("#rock1").on("click", function () {
-    //     console.log("clicked");
-    //     player1 = "Rock";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player1: player1
-    //     });
-    // })
+    if (player2) {
+        console.log("Player 2 Selected")
+    } else {
+        console.log("waiting on player 2");
+    }
+})
 
-    // $("#paper1").on("click", function () {
-    //     console.log("clicked");
-    //     player1 = "Paper";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player1: player1
-    //     });
-    // })
+database.ref("player2/choice").on("value", function(snapshot) {
+    console.log(snapshot.val());
+    player2 = snapshot.val();
 
-    // $("#scissors1").on("click", function () {
-    //     console.log("clicked");
-    //     player1 = "Scissors";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player1: player1
-    //     });
-    // })
-
-    // $("#rock2").on("click", function () {
-    //     console.log("clicked");
-    //     player2 = "Rock";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player2: player2
-    //     });
-    // })
-
-    // $("#paper2").on("click", function () {
-    //     console.log("clicked");
-    //     player2 = "Paper";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player2: player2
-    //     });
-    // })
-
-    // $("#scissors2").on("click", function () {
-    //     console.log("clicked");
-    //     player2 = "Scissors";
-    //     // log choice to the db
-    //     // same click function would log choice to the DB
-    //     database.ref().set({
-    //         player2: player2
-    //     });
-    // })
+    if (player1) {
+        console.log("Player 1 Selected")
+    } else {
+        console.log("waiting on player 1");
+    }
+})
 
 
     $("#whoWonBtn").on("click", function () {
         $("#mainContent").val("");
 
-        database.ref().on("child_added", function (childSnapshot) {
-            console.log(childSnapshot.val());
+        database.ref().on("value", function (snapshot) {
 
             // Store everything into a variable.
-            var player1Value = childSnapshot.val().player1Select;
-            var player2Value = childSnapshot.val().player2Select;
+            player1 = snapshot.val();
+            player2 = snapshot.val();
 
 
             
-            if ((player1Value === "Rock") || (player1Value === "Paper") || (player1Value === "Scissors")) {
+            if ((player1 === "Rock") || (player1 === "Paper") || (player1 === "Scissors")) {
                 
-                if ((player1Value === "Rock" && player2Value === "Scissors") ||
-                (player1Value === "Scissors" && player2Value === "Paper") ||
-                (player1Value === "Paper" && player2Value === "Rock")) {
+                if ((player1 === "Rock" && player2 === "Scissors") ||
+                (player1 === "Scissors" && player2 === "Paper") ||
+                (player1 === "Paper" && player2 === "Rock")) {
                     wins++;
-                } else if (player1Value === player2Value) {
+                } else if (player1 === player2) {
                     ties++;
                 } else {
                     losses++;
                 }
                 
-                $("#").text("Player 1 chose: " + player1Value);
-                $("#").text("Player 2 chose: " + player2Value);
+                $("#").text("Player 1 chose: " + player1);
+                $("#").text("Player 2 chose: " + player2);
                 $("#").text("wins: " + wins);
                 $("#").text("losses: " + losses);
                 $("#").text("ties: " + ties);
