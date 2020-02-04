@@ -61,7 +61,7 @@ database.ref("player2/choice").on("value", function (snapshot) {
 
 
 $("#whoWonBtn").on("click", function () {
-    $("#mainContent").detach("");
+    // $("#mainContent").detach("");
     console.log("reveal clicked");
 
     database.ref().on("value", function (snapshot) {
@@ -71,6 +71,7 @@ $("#whoWonBtn").on("click", function () {
         player2 = snapshot.val();
 
 
+        console.log(player1);
 
         if ((player1 === "Rock") || (player1 === "Paper") || (player1 === "Scissors")) {
 
@@ -86,7 +87,7 @@ $("#whoWonBtn").on("click", function () {
             // reset(); havent created this function yet - this would reset values in the db so that players can go again - need to maybe have a different view or button for reset AFTER we determine won is the winner
         };
     });
-    $("#winScreen").html("<p id = player1Chose>");
+    $("#winScreen").html("<p id = player1Chose>" + player1);
     $("#winScreen").html("<p id = player2Chose>");
     $("#winScreen").html("<p id = endWins>");
     $("#winScreen").html("<p id = endLoss>");
